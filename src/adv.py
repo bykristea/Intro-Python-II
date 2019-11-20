@@ -1,5 +1,7 @@
-from room import Room
+import textwrap
 
+from room import Room
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -39,6 +41,11 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player = {
+    'player1': Player('Pickaxe Phil', room['outside'])
+}
+
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +56,43 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+def move_direction(direction, current_room):
+    if direction == 'n' and current_room.n_to:
+        move_room(current_room.n_to)
+    elif direction == 'e' and current_room.e_to:
+        move_room(current_room.e_to)
+    elif direction == 's' and current_room.s_to:
+        move_room(current_room.s_to)
+    elif direction == 'w' and current_room.w_to:
+        move_room(current_room.w_to)
+    else:
+        text = f'You cannot go this way from {current_room.name}. ' \
+               f'{current_room.description} Which direction will you choose?'
+        print(f'\n{textwrap.fill(text)}')
+
+
+def move_room(new_room):
+    global player
+    player.current_room = new_room
+    print(f'\n{textwrap.fill(str(player))}')
+
+
+try:
+
+    player = player['player1']
+    print(f'\n{textwrap.fill(str(player))}')
+    while True:
+        print('\nOptions: n, e, s, w, q '
+              )
+
+        command = input("Choose your path wisely: ")
+        if command == 'q':
+            print('\nGame has ended.')
+            break
+        elif command == 'n' or 'e' or 's' or 'w':
+            move_direction(command, player.current_room)
+        else:
+            print('Please enter n, s, e, w or q')
+except:
+    print('Something has gone awry')
