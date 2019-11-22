@@ -90,7 +90,7 @@ try:
         if command == 'q':
             print('\nGame has ended.')
             break
-        elif command == 'n' or 'e' or 's' or 'w':
+        elif command == 'n' or command == 'e' or command == 's' or command == 'w':
             move_direction(command, player.current_room)
         else:
             print('Please enter n, s, e, w or q')
