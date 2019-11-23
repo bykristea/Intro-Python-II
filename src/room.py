@@ -3,9 +3,16 @@
 
 
 class Room:
-    def __init__(self, name, description):
+    def __init__(self, name, description, items=[],
+                 n_to=False, s_to=False, e_to=False, w_to=False
+                 ):
         self.name = name
-        self.descritpion = description
+        self.description = description
+        self.items = items
+        self.n_to = n_to
+        self.s_to = s_to
+        self.e_to = e_to
+        self.w_to = w_to
 
-        def __str__(self):
-            return f"{self.description}"
+    def __str__(self):
+        return f'{self.name}. {self.description}'
